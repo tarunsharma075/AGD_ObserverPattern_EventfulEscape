@@ -1,18 +1,22 @@
+
+
 using System;
 
-public class GameEventController<T>
+public class EventController 
 {
-    public event Action<T> baseEvent;
-    public void InvokeEvent(T type) => baseEvent?.Invoke(type);
-    public void AddListener(Action<T> listener) => baseEvent += listener;
-    public void RemoveListener(Action<T> listener) => baseEvent -= listener;
+    public Action baseEvent;
+
+    public void InvokeEvent() => baseEvent?.Invoke();
+    public void Subscribe(Action action) => baseEvent += action;
+    public void Unsubscribe(Action action) => baseEvent -= action;
 }
 
-public class GameEventController
-{
-    public event Action baseEvent;
-    public void InvokeEvent() => baseEvent?.Invoke();
-    public void AddListener(Action listener) => baseEvent += listener;
-    public void RemoveListener(Action listener) => baseEvent -= listener;
 
+public class EventController<T>
+{
+    public Action<T> baseEvent;
+
+    public void InvokeEvent(T param) => baseEvent?.Invoke(param);
+    public void Subscribe(Action<T> action) => baseEvent += action;
+    public void Unsubscribe(Action<T> action) => baseEvent -= action;
 }
