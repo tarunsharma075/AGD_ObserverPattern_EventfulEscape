@@ -24,6 +24,7 @@ public class GameUIView : MonoBehaviour
         tryAgainButton.onClick.AddListener(onTryAgainButtonClicked);
         quitButton.onClick.AddListener(onQuitButtonClicked);
         EventService.Instance.OnKeyPickedUp.AddListener(updateKeyText);
+        EventService.Instance.OnLightsOffByGhostEvent.AddListener(setRedVignette);
     }
     private void OnDisable() => EventService.Instance.OnKeyPickedUp.RemoveListener(updateKeyText);
 

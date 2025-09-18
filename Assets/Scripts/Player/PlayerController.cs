@@ -28,11 +28,14 @@ public class PlayerController
 
         EventService.Instance.OnLightSwitchToggled.AddListener(onLightSwitch);
         EventService.Instance.OnKeyPickedUp.AddListener(onKeysPickedUp);
+        EventService.Instance.OnLightsOffByGhostEvent.AddListener(LightsSwitchedOffByGhost);
     }
 
     ~PlayerController()
     {
         EventService.Instance.OnLightSwitchToggled.RemoveListener(onLightSwitch);
+        EventService.Instance.OnKeyPickedUp.AddListener(onKeysPickedUp);
+        EventService.Instance.OnLightsOffByGhostEvent.RemoveListener(LightsSwitchedOffByGhost);
         EventService.Instance.OnKeyPickedUp.RemoveListener(onKeysPickedUp);
     }
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
@@ -90,5 +93,11 @@ public class PlayerController
     private void onKeysPickedUp(int keys)
     {
         KeysEquipped = keys;
+    }
+
+    private  void LightsSwitchedOffByGhost()
+    {
+        playerState = PlayerState.InDark;
+
     }
 }
