@@ -27,11 +27,15 @@ public class PlayerController
         playerState = PlayerState.InDark;
 
         EventService.Instance.OnLightSwitchToggled.Subscribe(onLightSwitch);
+        EventService.Instance.OnKeyPickup.Subscribe(onkeypickup);
+
+       
     }
 
     ~PlayerController()
     {
         EventService.Instance.OnLightSwitchToggled.Unsubscribe(onLightSwitch);
+        EventService.Instance.OnKeyPickup.Unsubscribe(onkeypickup);
     }
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
 
@@ -85,4 +89,6 @@ public class PlayerController
         else
             PlayerState = PlayerState.InDark;
     }
+
+    private void onkeypickup(int keys) => KeysEquipped = keys;
 }
